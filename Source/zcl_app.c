@@ -23,6 +23,7 @@
 #include "gp_interface.h"
 
 #include "Debug.h"
+#include "battery.h"
 
 #include "OnBoard.h"
 
@@ -71,8 +72,6 @@ afAddrType_t inderect_DstAddr = {.addrMode = (afAddrMode_t)AddrNotPresent, .endP
  * LOCAL FUNCTIONS
  */
 static void zclApp_HandleKeys(byte shift, byte keys);
-
-static void zclApp_Battery(void);
 
 /*********************************************************************
  * ZCL General Profile Callback table
@@ -140,6 +139,7 @@ static void zclApp_HandleKeys(byte portAndAction, byte keyCode) {
     HalLedSet(HAL_LED_1, HAL_LED_MODE_BLINK);
     zclFactoryResetter_HandleKeys(portAndAction, keyCode);
     zclCommissioning_HandleKeys(portAndAction, keyCode);
+    zclBattery_HandleKeys(portAndAction, keyCode);
     bool isPressed = portAndAction & HAL_KEY_PRESS ? TRUE : FALSE;
     uint8 endPoint = 0;
     if (portAndAction & HAL_KEY_PORT0) {
@@ -170,14 +170,6 @@ static void zclApp_HandleKeys(byte portAndAction, byte keyCode) {
     }
 }
 
-static void zclApp_Battery(void) {
-    uint16 millivolts = getBatteryVoltage();
-    zclApp_BatteryVoltage = getBatteryVoltageZCL(millivolts);
-    zclApp_BatteryPercentageRemainig = getBatteryRemainingPercentageZCL(millivolts);
-
-    // bdb_RepChangedAttrValue(zclApp_FirstEP.EndPoint, POWER_CFG, ATTRID_POWER_CFG_BATTERY_VOLTAGE);
-    LREP("Battery voltage(mV)=%d\r\n", getBatteryVoltage());
-}
 
 
 /****************************************************************************

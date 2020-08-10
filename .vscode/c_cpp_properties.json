@@ -2,11 +2,10 @@
     "configurations": [{
         "name": "Mac",
         "forcedInclude": ["${workspaceRoot}/Source/preinclude.h"],
-        "defines": ["HAL_BOARD_TARGET", "HAL_I2C=TRUE", "HAL_I2C_MASTER"],
+        "defines": ["HAL_BOARD_TARGET"],
         "includePath": [
             "${workspaceRoot}",
-            "${workspaceRoot}/hal",
-            "${workspaceRoot}/BME280_driver",
+            "${workspaceRoot}/zstack-lib",
             "${env:ZSTACK_PATH}/Components/mac/include/",
             "${env:ZSTACK_PATH}/Components/mt",
             "${env:ZSTACK_PATH}/Components/zmac",

@@ -12,6 +12,7 @@
 #include "factory_reset.h"
 #include "commissioning.h"
 #include "Debug.h"
+#include "battery.h"
 
 #if defined ( MT_TASK )
   #include "MT.h"
@@ -30,7 +31,8 @@ const pTaskEventHandlerFn tasksArr[] = {macEventLoop,
                                         bdb_event_loop,
                                         zclApp_event_loop,
                                         zclFactoryResetter_loop,
-                                        zclCommissioning_event_loop
+                                        zclCommissioning_event_loop,
+                                        zclBattery_event_loop
                                         };
 
 const uint8 tasksCnt = sizeof(tasksArr) / sizeof(tasksArr[0]);
@@ -55,6 +57,7 @@ void osalInitTasks(void) {
     zclApp_Init(taskID++);
     zclFactoryResetter_Init(taskID++);
     zclCommissioning_Init(taskID++);
+    zclBattery_Init(taskID++);
 }
 
 /*********************************************************************
