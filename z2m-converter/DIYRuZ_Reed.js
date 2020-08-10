@@ -29,7 +29,7 @@ const device = {
     description: '[Reed switch](http://xxx.ru)',
     supports: '',
     fromZigbee: [
-        withEpPreffix(fromZigbeeConverters.on_off),
+        withEpPreffix(fromZigbeeConverters.ias_contact_alarm_1),
         fromZigbeeConverters.battery,
     ],
     toZigbee: [],
@@ -41,7 +41,7 @@ const device = {
         for (ep of [1, 2, 3]) {
             await bind(device.getEndpoint(ep), coordinatorEndpoint, [
                 'genPowerCfg',
-                'genOnOff'
+                'ssIasZone'
             ]);
         };
     },

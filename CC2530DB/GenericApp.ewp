@@ -2825,10 +2825,10 @@
             <name>$PROJ_DIR$\..\..\Source\zcl_ha.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\zcl\zcl_lighting.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\zcl\zcl_ss.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\zcl\zcl_lighting.h</name>
+            <name>$PROJ_DIR$\..\..\..\..\..\Components\stack\zcl\zcl_ss.h</name>
         </file>
     </group>
     <group>

@@ -73,8 +73,8 @@ const cId_t zclApp_InClusterList[] = {ZCL_CLUSTER_ID_GEN_BASIC};
 
 #define APP_MAX_INCLUSTERS (sizeof(zclApp_InClusterList) / sizeof(zclApp_InClusterList[0]))
 
-const cId_t zclApp_OutClusterListFirstEP[] = {POWER_CFG, GEN_ON_OFF};
-const cId_t zclApp_OutClusterListOtherEP[] = {GEN_ON_OFF};
+const cId_t zclApp_OutClusterListFirstEP[] = {POWER_CFG, IAS_ZONE};
+const cId_t zclApp_OutClusterListOtherEP[] = {IAS_ZONE};
 
 
 #define APP_MAX_OUTCLUSTERS_FIRST_EP (sizeof(zclApp_OutClusterListFirstEP) / sizeof(zclApp_OutClusterListFirstEP[0]))

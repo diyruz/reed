@@ -9,14 +9,12 @@
 #include "ZDObject.h"
 #include "math.h"
 
-
 #include "nwk_util.h"
 #include "zcl.h"
 #include "zcl_app.h"
 #include "zcl_diagnostic.h"
 #include "zcl_general.h"
-#include "zcl_lighting.h"
-#include "zcl_ms.h"
+#include "zcl_ss.h"
 
 #include "bdb.h"
 #include "bdb_interface.h"
@@ -39,7 +37,6 @@
 #include "factory_reset.h"
 #include "utils.h"
 #include "version.h"
-
 
 /*********************************************************************
  * MACROS
@@ -129,7 +126,6 @@ uint16 zclApp_event_loop(uint8 task_id, uint16 events) {
         return (events ^ SYS_EVENT_MSG);
     }
 
-
     // Discard unknown events
     return 0;
 }
@@ -140,7 +136,7 @@ static void zclApp_HandleKeys(byte portAndAction, byte keyCode) {
     zclFactoryResetter_HandleKeys(portAndAction, keyCode);
     zclCommissioning_HandleKeys(portAndAction, keyCode);
     zclBattery_HandleKeys(portAndAction, keyCode);
-    bool isPressed = portAndAction & HAL_KEY_PRESS ? TRUE : FALSE;
+    bool contact = portAndAction & HAL_KEY_PRESS ? TRUE : FALSE;
     uint8 endPoint = 0;
     if (portAndAction & HAL_KEY_PORT0) {
         endPoint = zclApp_FirstEP.EndPoint;
@@ -150,27 +146,14 @@ static void zclApp_HandleKeys(byte portAndAction, byte keyCode) {
         endPoint = zclApp_ThirdEP.EndPoint;
     }
 
-    zclGeneral_SendOnOff_CmdToggle(endPoint, &inderect_DstAddr, TRUE, bdb_getZCLFrameCounter());
-
-    LREP("isPressed=%d endpoint=%d\r\n", isPressed, endPoint);
-    zclReportCmd_t *pReportCmd;
-    pReportCmd = osal_mem_alloc(sizeof(zclReportCmd_t) + sizeof(zclReport_t));
-    if (pReportCmd != NULL) {
-        pReportCmd->numAttr = 1;
-        pReportCmd->attrList[0].attrID = ATTRID_ON_OFF;
-        pReportCmd->attrList[0].dataType = ZCL_DATATYPE_BOOLEAN;
-        pReportCmd->attrList[0].attrData = (uint8 *)&isPressed;
-        zcl_SendReportCmd(endPoint, &inderect_DstAddr, GEN_ON_OFF, pReportCmd, ZCL_FRAME_SERVER_CLIENT_DIR, FALSE, bdb_getZCLFrameCounter());
+    LREP("contact=%d endpoint=%d\r\n", contact, endPoint);
+    uint16 alarmStatus = 0;
+    if (!contact) {
+        alarmStatus |= BV(0);
     }
-    osal_mem_free(pReportCmd);
 
-    if (portAndAction & HAL_KEY_RELEASE) {
-        LREPMaster("Key release\r\n");
-        // osal_start_timerEx(zclApp_TaskID, APP_REPORT_EVT, 200);
-    }
+    zclSS_IAS_Send_ZoneStatusChangeNotificationCmd(endPoint, &inderect_DstAddr, alarmStatus, 0, 0, 0, true, bdb_getZCLFrameCounter());
 }
-
-
 
 /****************************************************************************
 ****************************************************************************/

@@ -13,7 +13,7 @@
 #define ZCL_READ
 #define ZCL_BASIC
 #define ZCL_IDENTIFY
-#define ZCL_ON_OFF
+#define ZCL_ZONE
 
 #define ZSTACK_DEVICE_BUILD (DEVICE_BUILD_ENDDEVICE)
 
