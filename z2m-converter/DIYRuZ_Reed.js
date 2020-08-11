@@ -22,6 +22,18 @@ const withEpPreffix = (converter) => ({
     },
 });
 
+const contactDiscovery = {
+    type: 'binary_sensor',
+    object_id: 'contact',
+    discovery_payload: {
+        payload_on: false,
+        payload_off: true,
+        value_template: '{{ value_json.contact }}',
+        device_class: 'door',
+    },
+};
+
+
 const device = {
     zigbeeModel: ['DIYRuZ_Reed'],
     model: 'DIYRuZ_Reed',
@@ -45,6 +57,7 @@ const device = {
             ]);
         };
     },
+    homeassistant: [contactDiscovery]
 };
 
 module.exports = device;
