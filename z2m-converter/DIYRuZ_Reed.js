@@ -41,7 +41,7 @@ const device = {
     description: '[Reed switch](http://xxx.ru)',
     supports: '',
     fromZigbee: [
-        withEpPreffix(fromZigbeeConverters.ias_contact_alarm_1),
+        fromZigbeeConverters.ias_contact_alarm_1,
         fromZigbeeConverters.battery,
     ],
     toZigbee: [],
