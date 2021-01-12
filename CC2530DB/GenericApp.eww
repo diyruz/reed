@@ -8,7 +8,7 @@
             <name>ALL</name>
             <member>
                 <project>GenericApp</project>
-                <configuration>flower</configuration>
+                <configuration>DIYRuZ_Reed</configuration>
             </member>
         </batchDefinition>
     </batchBuild>
