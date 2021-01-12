@@ -116,6 +116,12 @@ uint16 zclApp_event_loop(uint8 task_id, uint16 events) {
                 zclApp_HandleKeys(((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys);
                 break;
 
+            case ZCL_INCOMING_MSG:
+                if (((zclIncomingMsg_t *)MSGpkt)->attrCmd) {
+                    osal_mem_free(((zclIncomingMsg_t *)MSGpkt)->attrCmd);
+                }
+            break;
+
             default:
                 break;
             }
