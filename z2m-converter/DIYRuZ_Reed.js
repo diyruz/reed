@@ -1,5 +1,6 @@
 const {
-    fromZigbeeConverters
+    fromZigbeeConverters,
+    exposes
 } = require('zigbee-herdsman-converters');
 
 
@@ -56,7 +57,13 @@ const device = {
             ]);
         };
     },
-    homeassistant: [contactDiscovery]
+    homeassistant: [contactDiscovery],
+    exposes: [
+        exposes.presets.contact(),
+        exposes.presets.battery(),
+        exposes.presets.voltage(),
+        exposes.presets.linkquality()
+    ]
 };
 
 module.exports = device;
