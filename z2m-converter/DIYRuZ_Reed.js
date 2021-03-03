@@ -33,6 +33,35 @@ const contactDiscovery = {
     },
 };
 
+const batteryDiscovery = {
+    type: 'sensor',
+    object_id: 'battery',
+    discovery_payload: {
+        value_template: '{{ value_json.battery }}',
+        unit_of_measurement: '%',
+        device_class: 'battery',
+    },
+};
+
+const voltageDiscovery = {
+    type: 'sensor',
+    object_id: 'voltage',
+    discovery_payload: {
+        value_template: '{{ value_json.voltage }}',
+        unit_of_measurement: 'mV',
+        device_class: 'voltage',
+    },
+};
+
+const linkqualityDiscovery = {
+    type: 'sensor',
+    object_id: 'linkquality',
+    discovery_payload: {
+        value_template: '{{ value_json.linkquality }}',
+        unit_of_measurement: 'lqi',
+        icon: 'mdi:signal',
+    },
+};
 
 const device = {
     zigbeeModel: ['DIYRuZ_Reed'],
@@ -57,7 +86,12 @@ const device = {
             ]);
         };
     },
-    homeassistant: [contactDiscovery],
+    homeassistant: [
+        contactDiscovery,
+        batteryDiscovery,
+        voltageDiscovery,
+        linkqualityDiscovery
+    ],
     exposes: [
         exposes.presets.contact(),
         exposes.presets.battery(),
